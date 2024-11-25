@@ -209,6 +209,13 @@ CFLAGS_EXTMOD += $(SDL_CFLAGS_EXTMOD) -DMICROPY_SDL=1
 LDFLAGS_EXTMOD += $(SDL_LDFLAGS_EXTMOD)
 endif
 
+WAYLAND_CFLAGS_EXTMOD :=  $(shell pkg-config --silence-errors --cflags wayland-client wayland-cursor xkbcommon)
+WAYLAND_LDFLAGS_EXTMOD := $(shell pkg-config --silence-errors --libs   wayland-client wayland-cursor xkbcommon)
+ifneq ($(WAYLAND_LDFLAGS_EXTMOD),)
+CFLAGS_EXTMOD += $(WAYLAND_CFLAGS_EXTMOD) -DMICROPY_WAYLAND=1
+LDFLAGS_EXTMOD += $(WAYLAND_LDFLAGS_EXTMOD)
+endif
+
 RLOTTIE_CFLAGS_EXTMOD :=  $(shell pkg-config --silence-errors --cflags rlottie)
 RLOTTIE_LDFLAGS_EXTMOD := $(shell pkg-config --silence-errors --libs   rlottie)
 ifneq ($(RLOTTIE_LDFLAGS_EXTMOD),)
